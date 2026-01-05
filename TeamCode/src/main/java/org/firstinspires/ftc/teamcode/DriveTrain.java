@@ -1,10 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+
 
 public class DriveTrain {
 
@@ -12,10 +16,10 @@ public class DriveTrain {
     private Gamepad controller1;
     public DriveTrain(HardwareMap hardwareMap, Gamepad gamepad1)  {
 
-        left_front = hardwareMap.get(DcMotor.class, "lf");
-        left_back = hardwareMap.get(DcMotor.class, "lb");
-        right_front = hardwareMap.get(DcMotor.class, "rf");
-        right_back = hardwareMap.get(DcMotor.class, "rb");
+        left_front = hardwareMap.get(DcMotor.class, "left_front");
+        left_back = hardwareMap.get(DcMotor.class, "left_back");
+        right_front = hardwareMap.get(DcMotor.class, "right_front");
+        right_back = hardwareMap.get(DcMotor.class, "right_back");
         controller1 = gamepad1;
         right_front.setDirection(DcMotorSimple.Direction.REVERSE);
         right_back.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -24,7 +28,7 @@ public class DriveTrain {
         right_front.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         right_back.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-    
+
     public void runLoopInstance() {
 
         double lfPower = -controller1.left_stick_y + controller1.left_stick_x + controller1.right_stick_x;
@@ -32,6 +36,10 @@ public class DriveTrain {
         double rbPower = -controller1.left_stick_y + controller1.left_stick_x - controller1.right_stick_x;
         double rfPower = -controller1.left_stick_y - controller1.left_stick_x - controller1.right_stick_x;
 
+        left_front.setPower(lfPower);
+        left_back.setPower(lbPower);
+        right_front.setPower(rfPower);
+        right_back.setPower(rbPower);
     }
 
 }
